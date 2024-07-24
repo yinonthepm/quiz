@@ -1,0 +1,51 @@
+Question,Option 1,Option 2,Option 3,Option 4
+What does FHIR stand for in healthcare IT?,Fast Healthcare Interoperability Resources,Federal Health Information Registry,Functional Health Information Repository,Future Healthcare Information Regulations
+HL7 is:,A set of international standards for transfer of clinical and administrative data between software applications,A type of medical imaging technology,A classification system for hospital-acquired infections,A medication administration protocol
+A service-line block in OR scheduling refers to:,A specific time allocated for a particular medical specialty,A physical barrier in the operating room,A break period for medical staff,A type of anesthesia administration
+Shift rostering is:,The process of scheduling staff for different shifts,A technique for sterilizing surgical instruments,A method for categorizing patient acuity,A system for tracking medical supplies
+CRNA stands for:,Certified Registered Nurse Anesthetist,Clinical Research Nurse Assistant,Cardiology Registered Nursing Associate,Critical Response Nursing Administrator
+"A ""block for group of surgeons"" typically means:",Reserved OR time for a specific group of surgeons,A physical barrier between surgical teams,A team-building exercise for surgeons,A type of surgical instrument set
+Model Accuracy in machine learning refers to:,How well a model's predictions match actual outcomes,The physical precision of a 3D-printed surgical model,The clarity of medical imaging,The reliability of patient self-reporting
+MAE in data science stands for:,Mean Absolute Error,Maximum Accuracy Estimation,Model Accuracy Evaluation,Minimal Acceptable Error
+RMSE in statistics and machine learning stands for:,Root Mean Square Error,Rapid Medical Staff Evaluation,Relative Model Significance Estimate,Runtime Memory Storage Efficiency
+Setup and cleanup in OR management refers to:,The time needed to prepare and clean an OR between surgeries,A software installation process,A patient pre-op and post-op routine,A staff training program
+LLM in the context of AI stands for:,Large Language Model,Limited Liability Management,Linear Learning Method,Long-term Logistic Module
+The primary function of Opmed Copilot is:,To allow users to query about historical patterns and reports,To assist in surgical procedures,To manage staff schedules,To monitor patient vital signs
+SOC 2 Type 2 is:,A compliance standard for service organizations,A classification of surgical procedures,A type of medical device,A healthcare data encryption protocol
+MFA stands for:,Multi-Factor Authentication,Medical Facility Authorization,Managed File Access,Multiple Function Analysis
+Mixpanel is:,A product analytics platform,A blood sample analysis device,A multi-specialty surgical planning tool,A medication mixing system
+Cognito is:,An Amazon Web Services (AWS) service for user authentication,A cognitive assessment tool for patients,A surgical robot control system,A medical billing software
+"In cloud computing, Lambda refers to:",A serverless compute service,A type of radiation used in cancer treatment,A method for calculating drug dosages,A protocol for secure data transmission
+Kubernetes is:,An open-source container orchestration platform,A surgical technique for knee replacement,A patient positioning system in radiology,A type of hospital management software
+DynamoDB is:,A NoSQL database service provided by Amazon Web Services,A dynamic patient positioning table for surgery,A system for tracking hospital inventory in real-time,A method for analyzing patient movement patterns
+Tenant Params in multi-tenant software refers to:,Configuration settings specific to each client or 'tenant',Physical parameters of hospital buildings,Patient comfort metrics in hospital rooms,Staff performance indicators
+"In healthcare staffing, rostering refers to:",Creating and managing staff schedules,A method of patient triage,A technique for organizing medical records,A system for tracking medical equipment
+A Business Case is:,A justification for a proposed project or undertaking,A type of protective equipment used in hospitals,A method for categorizing patient conditions,A legal framework for healthcare organizations
+POV in a business context stands for:,Proof of Value,Patient Outcome Verification,Physician Order Validation,Procedural Operation Variance
+SDR in a business context stands for:,Sales Development Representative,Surgical Data Repository,System Downtime Recovery,Standard Diagnostic Routine
+"A ""full stack"" developer is proficient in:",Both front-end and back-end development,All surgical specialties,Complete hospital management systems,Comprehensive medical billing procedures
+A data scientist typically focuses on:,Analyzing and interpreting complex digital data,Studying the effects of diet on health,Researching new surgical techniques,Managing clinical trials
+"In Opmed.ai's structure, a ""Pod Leader"" is:",Team lead of a product-oriented delivery team,Head of the IT department,Chief Medical Officer,Lead surgeon in an operating room
+The primary focus of a VP of Sales and Growth would be:,Driving revenue and expanding the company's market presence,Overseeing surgical procedures,Managing patient care quality,Developing new medical technologies
+HIPAA stands for:,Health Insurance Portability and Accountability Act,Hospital Inpatient Patient Admission Assessment,Healthcare Information Processing and Analysis Association,High-Intensity Patient Acuity Algorithm
+GDPR stands for:,General Data Protection Regulation,Global Digital Patient Records,Graduated Dose Prescription Routine,Generalized Diagnostic Procedure Review
+Thoropass is likely:,A compliance and security management platform,A thoracic surgical technique,A patient transport system in hospitals,A medication delivery system
+Guru in a business context typically refers to:,A knowledge management solution,A senior medical consultant,A type of medical imaging software,A patient education program
+"In project management, a Sprint is:",A set period of time during which specific work has to be completed,A rapid response medical team,A fast-track patient discharge process,An accelerated drug development phase
+PACU stands for:,Post-Anesthesia Care Unit,Pre-Admission Clinical Unit,Patient Acute Care University,Physician Assistant Certification Union
+SDS in a medical context often stands for:,Same Day Surgery,Sudden Death Syndrome,Structured Data System,Surgical Dressing Set
+Inpatient and site Load Balancing refers to:,Distributing patient load across different hospital locations or units,A technique for patient weight management,Balancing medical equipment across facilities,A method for equalizing staff workloads
+Parallel rooms in OR management refers to:,Multiple ORs used simultaneously by one surgical team,Operating rooms that are exactly alike,A virtual reality surgical simulation,Rooms used for simultaneous patient consultations
+"A ""flipped room"" in OR management is:",A strategy where one room is being cleaned while another is in use,An OR where the equipment layout is reversed,A room dedicated to emergency surgeries,A training room for new surgical techniques
+An O-arm is:,An intraoperative imaging system,A type of surgical retractor,A patient positioning device,A robotic surgical assistant
+A C-arm is:,An X-ray image intensifier,A type of surgical lighting,A patient transfer device,A vital signs monitor
+Salesforce is:,A customer relationship management (CRM) platform,A surgical force measurement tool,A staff performance evaluation system,A medication sales tracking software
+The Mayo Clinic Opmed site locations include:,"Rochester, MN; Scottsdale, AZ; Phoenix, AZ; Jacksonville, FL","New York, NY; Los Angeles, CA; Chicago, IL","Boston, MA; San Francisco, CA; Miami, FL","Seattle, WA; Denver, CO; Atlanta, GA"
+"In project management, a Scrum Master is responsible for:",Facilitating the Scrum process and removing impediments,Performing complex surgical procedures,Managing hospital security,Overseeing medical research
+DevOps refers to:,A set of practices that combines software development and IT operations,A type of surgical robot,A patient care methodology,A medical device development process
+An Automation Engineer typically focuses on:,Designing and implementing automated systems and processes,Automating surgical procedures,Creating automated patient care routines,Developing autonomous medical devices
+An Algorithm Engineer specializes in:,Developing and optimizing computational algorithms,Performing algorithmic trading in healthcare stocks,Creating step-by-step surgical guides,Designing patient treatment plans
+A Random Forest is:,A machine learning algorithm,A technique for randomizing patient room assignments,A method for diversifying medical research,A strategy for planting trees around hospitals
+XGBoost regressor is:,A machine learning algorithm for regression tasks,A tool for boosting X-ray image quality,A system for regressing patient symptoms,A method for forecasting hospital resource needs
+"In OR management, a ""No Show"" refers to:",A patient who doesn't arrive for their scheduled procedure,A surgeon who is unavailable for a scheduled surgery,A malfunctioning piece of equipment,An incomplete medical record
+Room Utilization in hospital management refers to:,The efficiency of operating room usage,The process of cleaning and preparing patient rooms,A method for allocating rooms to departments,A patient satisfaction metric for room quality
