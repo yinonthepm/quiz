@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opmed.ai Knowledge Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .question {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .option {
+            margin: 5px 0;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Opmed.ai Knowledge Quiz</h1>
+    <div id="quiz"></div>
+    <button onclick="submitQuiz()">Submit Quiz</button>
+    <div id="results"></div>
+
+    <script>
+        let quizData = [];
+
+        function loadCSV() {
+            fetch('questions.csv')
+                .then(response => response.text())
+                .then(data => {
+                    quizData = csvToJson(data);
+                    createQuiz();
+                })
+                .catch(error => console.error('Error loading CSV:', error));
+        }
+
+        function createQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            quizData.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <p><strong>Question ${index + 1}:</strong> ${question.Question}</p>
+                    <div class="options">
+                        ${['Option 1', 'Option 2', 'Option 3', 'Option 4'].map((option, i) => `
+                            <label class="option">
+                                <input type="radio" name="q${index}" value="${i}">
+                                ${question[option]}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            const results = [];
+            quizData.forEach((_, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected) {
+                    results.push(parseInt(selected.value));
+                } else {
+                    results.push(-1);
+                }
+            });
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '<h2>Quiz Results</h2>';
+            let score = 0;
+            results.forEach((result, index) => {
+                if (result === 0) { // Assuming the first option is always correct
+                    score++;
+                    resultsContainer.innerHTML += `<p>Question ${index + 1}: Correct</p>`;
+                } else if (result === -1) {
+                    resultsContainer.innerHTML += `<p>Question ${index + 1}: Not answered</p>`;
+                } else {
+                    resultsContainer.innerHTML += `<p>Question ${index + 1}: Incorrect</p>`;
+                }
+            });
+            resultsContainer.innerHTML += `<h3>Total Score: ${score}/${results.length}</h3>`;
+        }
+
+        // Convert CSV to JSON
+        function csvToJson(csv) {
+            const lines = csv.split('\n');
+            const result = [];
+            const headers = lines[0].split(',');
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i]) continue;
+                const obj = {};
+                const currentline = lines[i].split(',');
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j]] = currentline[j];
+                }
+                result.push(obj);
+            }
+            return result;
+        }
+
+        // Load the CSV when the page loads
+        window.onload = loadCSV;
+    </script>
+</body>
+</html>
