@@ -33,6 +33,15 @@
             font-style: italic;
             color: #666;
         }
+        .intro-message {
+            background-color: #f0f8ff;
+            border: 1px solid #00B2A9;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-style: italic;
+            color: #333;
+        }
         .question {
             margin-bottom: 20px;
             border: 1px solid #ddd;
@@ -72,14 +81,9 @@
             font-weight: bold;
             color: #00B2A9;
         }
-        .intro-message {
-            background-color: #f0f8ff; /* Light blue background */
-            border: 1px solid #00B2A9;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 20px;
-            font-style: italic;
-            color: #333;
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -91,14 +95,17 @@
             <p class="tagline">Improving Healthcare Operations with Disruptive Technology</p>
         </div>
     </div>
-     <div class="intro-message">
-        <p>Welcome to our knowledge sharing quiz! This isn't a test - it's a fun way to explore and learn about healthcare operations, Opmed.ai and technology. Enjoy the journey of discovery!</p>
+    
+    <div class="intro-message">
+        <p>Welcome to the Opmed.ai Knowledge Sharing Quiz! This isn't about testing anyone - it's our way of sharing exciting insights about healthcare operations and disruptive technology. Dive in, learn something new, and most importantly, have fun exploring these concepts with us!</p>
     </div>
+
     <div id="timer"></div>
     <div id="progress"></div>
     <div id="quiz"></div>
     <button id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
     <div id="results"></div>
+
     <script>
         let quizData = [];
         let timerInterval;
@@ -157,14 +164,36 @@
                     <div class="options">
                         ${options.map((option, i) => `
                             <label class="option">
-                                <input type="radio" name="q${index}" value="${i}" data-correct="${option.correct}">
+                                <input type="radio" name="q${index}" value="${i}" data-correct="${option.correct}" onchange="checkAnswer(${index}, this)">
                                 ${option.text}
                             </label>
                         `).join('')}
                     </div>
+                    <div id="feedback${index}" class="feedback"></div>
                 `;
                 quizContainer.appendChild(questionDiv);
             });
+        }
+
+        function checkAnswer(questionIndex, selectedOption) {
+            const feedbackDiv = document.getElementById(`feedback${questionIndex}`);
+            const allOptions = document.getElementsByName(`q${questionIndex}`);
+            
+            allOptions.forEach(option => {
+                option.disabled = true;
+                if (option.dataset.correct === 'true') {
+                    option.parentElement.classList.add('correct');
+                }
+            });
+
+            if (selectedOption.dataset.correct === 'true') {
+                feedbackDiv.innerHTML = 'Correct! Well done!';
+                feedbackDiv.style.color = 'green';
+            } else {
+                feedbackDiv.innerHTML = 'Incorrect. The correct answer is highlighted.';
+                feedbackDiv.style.color = 'red';
+                selectedOption.parentElement.classList.add('incorrect');
+            }
         }
 
         function submitQuiz() {
@@ -182,24 +211,9 @@
             resultsContainer.innerHTML = '<h2>Quiz Results</h2>';
             let score = 0;
             results.forEach((result, index) => {
-                const questionDiv = document.getElementById(`question${index}`);
-                const selected = questionDiv.querySelector('input:checked');
                 if (result === true) {
                     score++;
-                    resultsContainer.innerHTML += `<p>Question ${index + 1}: Correct</p>`;
-                    if (selected) selected.parentElement.classList.add('correct');
-                } else if (result === null) {
-                    resultsContainer.innerHTML += `<p>Question ${index + 1}: Not answered</p>`;
-                } else {
-                    resultsContainer.innerHTML += `<p>Question ${index + 1}: Incorrect</p>`;
-                    if (selected) selected.parentElement.classList.add('incorrect');
                 }
-                questionDiv.querySelectorAll('input').forEach(input => {
-                    input.disabled = true;
-                    if (input.dataset.correct === 'true') {
-                        input.parentElement.classList.add('correct');
-                    }
-                });
             });
             resultsContainer.innerHTML += `<h3>Total Score: ${score}/${results.length}</h3>`;
         }
