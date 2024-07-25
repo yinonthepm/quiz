@@ -17,7 +17,6 @@
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 5px;
-            transition: opacity 0.5s ease-in-out;
         }
         .options {
             display: flex;
@@ -39,34 +38,21 @@
             color: red;
             text-decoration: line-through;
         }
-        #progress, #timer {
+        #timer {
             margin-bottom: 20px;
-        }
-        .hidden {
-            display: none;
-        }
-        .fade-out {
-            opacity: 0;
-        }
-        .fade-in {
-            opacity: 1;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <h1>Opmed.ai Knowledge Quiz</h1>
     <div id="timer"></div>
-    <div id="progress"></div>
     <div id="quiz"></div>
     <button id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
-    <button id="nextBtn" onclick="showNextQuestion()" class="hidden">Next Question</button>
-    <button id="reviewBtn" onclick="reviewQuiz()" class="hidden">Review Quiz</button>
     <div id="results"></div>
 
     <script>
         let quizData = [];
-        let currentQuestion = 0;
-        let userAnswers = [];
         let timerInterval;
         let timeLeft = 600; // 10 minutes
 
@@ -106,7 +92,7 @@
             quizContainer.innerHTML = '';
             quizData.forEach((question, index) => {
                 const questionDiv = document.createElement('div');
-                questionDiv.className = 'question' + (index === 0 ? '' : ' hidden');
+                questionDiv.className = 'question';
                 questionDiv.id = `question${index}`;
                 
                 let options = [
@@ -130,36 +116,16 @@
                 `;
                 quizContainer.appendChild(questionDiv);
             });
-            updateProgress();
-        }
-
-        function showNextQuestion() {
-            if (currentQuestion < quizData.length - 1) {
-                document.getElementById(`question${currentQuestion}`).classList.add('fade-out');
-                setTimeout(() => {
-                    document.getElementById(`question${currentQuestion}`).classList.add('hidden');
-                    currentQuestion++;
-                    document.getElementById(`question${currentQuestion}`).classList.remove('hidden');
-                    setTimeout(() => {
-                        document.getElementById(`question${currentQuestion}`).classList.add('fade-in');
-                    }, 50);
-                    updateProgress();
-                }, 500);
-            } else {
-                document.getElementById('nextBtn').classList.add('hidden');
-                document.getElementById('submitBtn').classList.remove('hidden');
-            }
         }
 
         function submitQuiz() {
             clearInterval(timerInterval);
-            userAnswers = quizData.map((_, index) => {
+            const results = quizData.map((_, index) => {
                 const selected = document.querySelector(`input[name="q${index}"]:checked`);
                 return selected ? selected.dataset.correct === 'true' : null;
             });
-            displayResults(userAnswers);
-            document.getElementById('submitBtn').classList.add('hidden');
-            document.getElementById('reviewBtn').classList.remove('hidden');
+            displayResults(results);
+            document.getElementById('submitBtn').style.display = 'none';
         }
 
         function displayResults(results) {
@@ -167,38 +133,26 @@
             resultsContainer.innerHTML = '<h2>Quiz Results</h2>';
             let score = 0;
             results.forEach((result, index) => {
+                const questionDiv = document.getElementById(`question${index}`);
+                const selected = questionDiv.querySelector('input:checked');
                 if (result === true) {
                     score++;
                     resultsContainer.innerHTML += `<p>Question ${index + 1}: Correct</p>`;
+                    if (selected) selected.parentElement.classList.add('correct');
                 } else if (result === null) {
                     resultsContainer.innerHTML += `<p>Question ${index + 1}: Not answered</p>`;
                 } else {
                     resultsContainer.innerHTML += `<p>Question ${index + 1}: Incorrect</p>`;
+                    if (selected) selected.parentElement.classList.add('incorrect');
                 }
-            });
-            resultsContainer.innerHTML += `<h3>Total Score: ${score}/${results.length}</h3>`;
-        }
-
-        function reviewQuiz() {
-            document.getElementById('results').classList.add('hidden');
-            document.getElementById('reviewBtn').classList.add('hidden');
-            document.getElementById('quiz').classList.remove('hidden');
-            quizData.forEach((_, index) => {
-                const questionDiv = document.getElementById(`question${index}`);
-                questionDiv.classList.remove('hidden');
-                const selected = questionDiv.querySelector(`input[name="q${index}"]:checked`);
-                if (selected) {
-                    selected.parentElement.classList.add(selected.dataset.correct === 'true' ? 'correct' : 'incorrect');
-                }
-                questionDiv.querySelectorAll('input[type="radio"]').forEach(input => {
+                questionDiv.querySelectorAll('input').forEach(input => {
                     input.disabled = true;
+                    if (input.dataset.correct === 'true') {
+                        input.parentElement.classList.add('correct');
+                    }
                 });
             });
-        }
-
-        function updateProgress() {
-            const progress = document.getElementById('progress');
-            progress.innerHTML = `Question ${currentQuestion + 1} of ${quizData.length}`;
+            resultsContainer.innerHTML += `<h3>Total Score: ${score}/${results.length}</h3>`;
         }
 
         function startTimer() {
