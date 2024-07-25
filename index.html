@@ -1,20 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opmed.ai Knowledge Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .question {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .option {
+            margin: 5px 0;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: red;
+            text-decoration: line-through;
+        }
+        #progress, #timer {
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .fade-out {
+            opacity: 0;
+        }
+        .fade-in {
+            opacity: 1;
+        }
+    </style>
+</head>
 <body>
     <h1>Opmed.ai Knowledge Quiz</h1>
+    <div id="timer"></div>
     <div id="progress"></div>
     <div id="quiz"></div>
-    <button onclick="submitQuiz()">Submit Quiz</button>
+    <button id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
+    <button id="nextBtn" onclick="showNextQuestion()" class="hidden">Next Question</button>
+    <button id="reviewBtn" onclick="reviewQuiz()" class="hidden">Review Quiz</button>
     <div id="results"></div>
 
     <script>
         let quizData = [];
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let timerInterval;
+        let timeLeft = 600; // 10 minutes
 
         function loadCSV() {
             fetch('questions.csv')
                 .then(response => response.text())
                 .then(data => {
                     quizData = csvToJson(data);
-                    shuffleArray(quizData);  // Shuffle questions
+                    shuffleArray(quizData);
                     createQuiz();
+                    startTimer();
                 })
                 .catch(error => {
                     console.error('Error loading CSV:', error);
@@ -24,11 +87,12 @@
 
         function createQuiz() {
             const quizContainer = document.getElementById('quiz');
+            quizContainer.innerHTML = '';
             quizData.forEach((question, index) => {
                 const questionDiv = document.createElement('div');
-                questionDiv.className = 'question';
+                questionDiv.className = 'question' + (index === 0 ? '' : ' hidden');
+                questionDiv.id = `question${index}`;
                 
-                // Create an array of all options and shuffle it
                 let options = [
                     {text: question['Option 1'], correct: true},
                     {text: question['Option 2'], correct: false},
@@ -53,18 +117,33 @@
             updateProgress();
         }
 
+        function showNextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                document.getElementById(`question${currentQuestion}`).classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById(`question${currentQuestion}`).classList.add('hidden');
+                    currentQuestion++;
+                    document.getElementById(`question${currentQuestion}`).classList.remove('hidden');
+                    setTimeout(() => {
+                        document.getElementById(`question${currentQuestion}`).classList.add('fade-in');
+                    }, 50);
+                    updateProgress();
+                }, 500);
+            } else {
+                document.getElementById('nextBtn').classList.add('hidden');
+                document.getElementById('submitBtn').classList.remove('hidden');
+            }
+        }
+
         function submitQuiz() {
-            const results = [];
-            quizData.forEach((_, index) => {
+            clearInterval(timerInterval);
+            userAnswers = quizData.map((_, index) => {
                 const selected = document.querySelector(`input[name="q${index}"]:checked`);
-                if (selected) {
-                    results.push(selected.dataset.correct === 'true');
-                    selected.parentElement.classList.add(selected.dataset.correct === 'true' ? 'correct' : 'incorrect');
-                } else {
-                    results.push(null);
-                }
+                return selected ? selected.dataset.correct === 'true' : null;
             });
-            displayResults(results);
+            displayResults(userAnswers);
+            document.getElementById('submitBtn').classList.add('hidden');
+            document.getElementById('reviewBtn').classList.remove('hidden');
         }
 
         function displayResults(results) {
@@ -84,12 +163,42 @@
             resultsContainer.innerHTML += `<h3>Total Score: ${score}/${results.length}</h3>`;
         }
 
-        function updateProgress() {
-            const progress = document.getElementById('progress');
-            progress.innerHTML = `Question 1 of ${quizData.length}`;
+        function reviewQuiz() {
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('reviewBtn').classList.add('hidden');
+            document.getElementById('quiz').classList.remove('hidden');
+            quizData.forEach((_, index) => {
+                const questionDiv = document.getElementById(`question${index}`);
+                questionDiv.classList.remove('hidden');
+                const selected = questionDiv.querySelector(`input[name="q${index}"]:checked`);
+                if (selected) {
+                    selected.parentElement.classList.add(selected.dataset.correct === 'true' ? 'correct' : 'incorrect');
+                }
+                questionDiv.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.disabled = true;
+                });
+            });
         }
 
-        // Utility function to shuffle an array
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            progress.innerHTML = `Question ${currentQuestion + 1} of ${quizData.length}`;
+        }
+
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer');
+            timerInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.innerHTML = `Time left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -97,12 +206,22 @@
             }
         }
 
-        // Convert CSV to JSON (unchanged)
         function csvToJson(csv) {
-            // ... (previous implementation) ...
+            const lines = csv.split('\n');
+            const result = [];
+            const headers = lines[0].split(',');
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i]) continue;
+                const obj = {};
+                const currentline = lines[i].split(',');
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j]] = currentline[j];
+                }
+                result.push(obj);
+            }
+            return result;
         }
 
-        // Load the CSV when the page loads
         window.onload = loadCSV;
     </script>
 </body>
