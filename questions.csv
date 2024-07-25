@@ -15,7 +15,7 @@ SOC 2 Type 2 is:,A compliance standard for service organizations,A classificatio
 MFA stands for:,Multi-Factor Authentication,Medical Facility Authorization,Managed File Access,Multiple Function Analysis
 Mixpanel is:,A product analytics platform,A blood sample analysis device,A multi-specialty surgical planning tool,A medication mixing system
 Cognito is:,An Amazon Web Services (AWS) service for user authentication,A cognitive assessment tool for patients,A surgical robot control system,A medical billing software
-"In cloud computing, Lambda refers to:",A serverless compute service,A type of radiation used in cancer treatment,A method for calculating drug dosages,A protocol for secure data transmission
+"In cloud computing Lambda refers to:",A serverless compute service,A type of radiation used in cancer treatment,A method for calculating drug dosages,A protocol for secure data transmission
 Kubernetes is:,An open-source container orchestration platform,A surgical technique for knee replacement,A patient positioning system in radiology,A type of hospital management software
 DynamoDB is:,A NoSQL database service provided by Amazon Web Services,A dynamic patient positioning table for surgery,A system for tracking hospital inventory in real-time,A method for analyzing patient movement patterns
 Tenant Params in multi-tenant software refers to:,Configuration settings specific to each client or 'tenant',Physical parameters of hospital buildings,Patient comfort metrics in hospital rooms,Staff performance indicators
@@ -25,13 +25,13 @@ POV in a business context stands for:,Proof of Value,Patient Outcome Verificatio
 SDR in a business context stands for:,Sales Development Representative,Surgical Data Repository,System Downtime Recovery,Standard Diagnostic Routine
 "A ""full stack"" developer is proficient in:",Both front-end and back-end development,All surgical specialties,Complete hospital management systems,Comprehensive medical billing procedures
 A data scientist typically focuses on:,Analyzing and interpreting complex digital data,Studying the effects of diet on health,Researching new surgical techniques,Managing clinical trials
-"In Opmed.ai's structure, a ""Pod Leader"" is:",Team lead of a product-oriented delivery team,Head of the IT department,Chief Medical Officer,Lead surgeon in an operating room
+"In Opmed.ai's RnD structure a ""Pod Leader"" is:",Team lead of a product-oriented delivery team,Head of the IT department,Chief Medical Officer,Lead surgeon in an operating room
 The primary focus of a VP of Sales and Growth would be:,Driving revenue and expanding the company's market presence,Overseeing surgical procedures,Managing patient care quality,Developing new medical technologies
 HIPAA stands for:,Health Insurance Portability and Accountability Act,Hospital Inpatient Patient Admission Assessment,Healthcare Information Processing and Analysis Association,High-Intensity Patient Acuity Algorithm
 GDPR stands for:,General Data Protection Regulation,Global Digital Patient Records,Graduated Dose Prescription Routine,Generalized Diagnostic Procedure Review
 Thoropass is likely:,A compliance and security management platform,A thoracic surgical technique,A patient transport system in hospitals,A medication delivery system
 Guru in a business context typically refers to:,A knowledge management solution,A senior medical consultant,A type of medical imaging software,A patient education program
-"In project management, a Sprint is:",A set period of time during which specific work has to be completed,A rapid response medical team,A fast-track patient discharge process,An accelerated drug development phase
+"In project management a Sprint is:",A set period of time during which specific work has to be completed,A rapid response medical team,A fast-track patient discharge process,An accelerated drug development phase
 PACU stands for:,Post-Anesthesia Care Unit,Pre-Admission Clinical Unit,Patient Acute Care University,Physician Assistant Certification Union
 SDS in a medical context often stands for:,Same Day Surgery,Sudden Death Syndrome,Structured Data System,Surgical Dressing Set
 Inpatient and site Load Balancing refers to:,Distributing patient load across different hospital locations or units,A technique for patient weight management,Balancing medical equipment across facilities,A method for equalizing staff workloads
@@ -47,5 +47,5 @@ An Automation Engineer typically focuses on:,Designing and implementing automate
 An Algorithm Engineer specializes in:,Developing and optimizing computational algorithms,Performing algorithmic trading in healthcare stocks,Creating step-by-step surgical guides,Designing patient treatment plans
 A Random Forest is:,A machine learning algorithm,A technique for randomizing patient room assignments,A method for diversifying medical research,A strategy for planting trees around hospitals
 XGBoost regressor is:,A machine learning algorithm for regression tasks,A tool for boosting X-ray image quality,A system for regressing patient symptoms,A method for forecasting hospital resource needs
-"In OR management, a ""No Show"" refers to:",A patient who doesn't arrive for their scheduled procedure,A surgeon who is unavailable for a scheduled surgery,A malfunctioning piece of equipment,An incomplete medical record
+"In OR management a ""No Show"" refers to:",A patient who doesn't arrive for their scheduled procedure,A surgeon who is unavailable for a scheduled surgery,A malfunctioning piece of equipment,An incomplete medical record
 Room Utilization in hospital management refers to:,The efficiency of operating room usage,The process of cleaning and preparing patient rooms,A method for allocating rooms to departments,A patient satisfaction metric for room quality
