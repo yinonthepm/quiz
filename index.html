@@ -12,6 +12,27 @@
             max-width: 800px;
             margin: 0 auto;
         }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .title-tagline {
+            flex-grow: 1;
+        }
+        h1 {
+            margin-bottom: 5px;
+            color: #00B2A9;
+        }
+        .tagline {
+            font-style: italic;
+            color: #666;
+        }
         .question {
             margin-bottom: 20px;
             border: 1px solid #ddd;
@@ -29,6 +50,14 @@
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 16px;
+            background-color: #00B2A9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #008C8C;
         }
         .correct {
             color: green;
@@ -41,17 +70,23 @@
         #timer, #progress {
             margin-bottom: 20px;
             font-weight: bold;
+            color: #00B2A9;
         }
     </style>
 </head>
 <body>
-    <h1>Opmed.ai Knowledge Quiz</h1>
+    <div class="header">
+        <img src="opmed_logo.png" alt="Opmed.ai Logo" class="logo">
+        <div class="title-tagline">
+            <h1>Opmed.ai Knowledge Quiz</h1>
+            <p class="tagline">Improving Healthcare Operations with Disruptive Technology</p>
+        </div>
+    </div>
     <div id="timer"></div>
     <div id="progress"></div>
     <div id="quiz"></div>
     <button id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
     <div id="results"></div>
-
     <script>
         let quizData = [];
         let timerInterval;
