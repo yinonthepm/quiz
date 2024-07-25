@@ -1,39 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opmed.ai Knowledge Quiz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .question {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .options {
-            display: flex;
-            flex-direction: column;
-        }
-        .option {
-            margin: 5px 0;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-    </style>
-</head>
 <body>
     <h1>Opmed.ai Knowledge Quiz</h1>
+    <div id="progress"></div>
     <div id="quiz"></div>
     <button onclick="submitQuiz()">Submit Quiz</button>
     <div id="results"></div>
@@ -46,9 +13,13 @@
                 .then(response => response.text())
                 .then(data => {
                     quizData = csvToJson(data);
+                    shuffleArray(quizData);  // Shuffle questions
                     createQuiz();
                 })
-                .catch(error => console.error('Error loading CSV:', error));
+                .catch(error => {
+                    console.error('Error loading CSV:', error);
+                    document.getElementById('quiz').innerHTML = 'Error loading quiz. Please try again later.';
+                });
         }
 
         function createQuiz() {
@@ -56,19 +27,30 @@
             quizData.forEach((question, index) => {
                 const questionDiv = document.createElement('div');
                 questionDiv.className = 'question';
+                
+                // Create an array of all options and shuffle it
+                let options = [
+                    {text: question['Option 1'], correct: true},
+                    {text: question['Option 2'], correct: false},
+                    {text: question['Option 3'], correct: false},
+                    {text: question['Option 4'], correct: false}
+                ];
+                shuffleArray(options);
+
                 questionDiv.innerHTML = `
                     <p><strong>Question ${index + 1}:</strong> ${question.Question}</p>
                     <div class="options">
-                        ${['Option 1', 'Option 2', 'Option 3', 'Option 4'].map((option, i) => `
+                        ${options.map((option, i) => `
                             <label class="option">
-                                <input type="radio" name="q${index}" value="${i}">
-                                ${question[option]}
+                                <input type="radio" name="q${index}" value="${i}" data-correct="${option.correct}">
+                                ${option.text}
                             </label>
                         `).join('')}
                     </div>
                 `;
                 quizContainer.appendChild(questionDiv);
             });
+            updateProgress();
         }
 
         function submitQuiz() {
@@ -76,9 +58,10 @@
             quizData.forEach((_, index) => {
                 const selected = document.querySelector(`input[name="q${index}"]:checked`);
                 if (selected) {
-                    results.push(parseInt(selected.value));
+                    results.push(selected.dataset.correct === 'true');
+                    selected.parentElement.classList.add(selected.dataset.correct === 'true' ? 'correct' : 'incorrect');
                 } else {
-                    results.push(-1);
+                    results.push(null);
                 }
             });
             displayResults(results);
@@ -89,10 +72,10 @@
             resultsContainer.innerHTML = '<h2>Quiz Results</h2>';
             let score = 0;
             results.forEach((result, index) => {
-                if (result === 0) { // Assuming the first option is always correct
+                if (result === true) {
                     score++;
                     resultsContainer.innerHTML += `<p>Question ${index + 1}: Correct</p>`;
-                } else if (result === -1) {
+                } else if (result === null) {
                     resultsContainer.innerHTML += `<p>Question ${index + 1}: Not answered</p>`;
                 } else {
                     resultsContainer.innerHTML += `<p>Question ${index + 1}: Incorrect</p>`;
@@ -101,21 +84,22 @@
             resultsContainer.innerHTML += `<h3>Total Score: ${score}/${results.length}</h3>`;
         }
 
-        // Convert CSV to JSON
-        function csvToJson(csv) {
-            const lines = csv.split('\n');
-            const result = [];
-            const headers = lines[0].split(',');
-            for (let i = 1; i < lines.length; i++) {
-                if (!lines[i]) continue;
-                const obj = {};
-                const currentline = lines[i].split(',');
-                for (let j = 0; j < headers.length; j++) {
-                    obj[headers[j]] = currentline[j];
-                }
-                result.push(obj);
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            progress.innerHTML = `Question 1 of ${quizData.length}`;
+        }
+
+        // Utility function to shuffle an array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-            return result;
+        }
+
+        // Convert CSV to JSON (unchanged)
+        function csvToJson(csv) {
+            // ... (previous implementation) ...
         }
 
         // Load the CSV when the page loads
