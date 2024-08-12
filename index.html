@@ -104,7 +104,7 @@
     <div id="progress"></div>
     <div id="level"></div>
     <div id="quiz"></div>
-    <button id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
+    <button id="submitBtn" onclick="submitAnswer()">Submit Answer</button>
     <div id="results"></div>
 
     <script>
@@ -113,6 +113,7 @@
         let timeLeft = 1500; // 25 minutes
         let currentLevel = 1;
         let currentQuestion = 0;
+        let userAnswers = [];
 
         function loadCSV() {
             fetch('questions.csv')
@@ -169,7 +170,7 @@
                 <div class="options">
                     ${options.map((option, i) => `
                         <label class="option">
-                            <input type="radio" name="q${currentQuestion}" value="${i}" data-correct="${option.correct}" onchange="checkAnswer(${currentQuestion}, this)">
+                            <input type="radio" name="q${currentQuestion}" value="${i}" data-correct="${option.correct}">
                             ${option.text}
                         </label>
                     `).join('')}
@@ -177,6 +178,19 @@
                 <div id="feedback${currentQuestion}" class="feedback"></div>
             `;
             quizContainer.appendChild(questionDiv);
+            document.getElementById('submitBtn').style.display = 'block';
+        }
+
+        function submitAnswer() {
+            const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+            if (!selectedOption) {
+                alert("Please select an answer before submitting.");
+                return;
+            }
+
+            checkAnswer(currentQuestion, selectedOption);
+            document.getElementById('submitBtn').innerHTML = "Next Question";
+            document.getElementById('submitBtn').onclick = moveToNextQuestion;
         }
 
         function checkAnswer(questionIndex, selectedOption) {
@@ -193,47 +207,42 @@
             if (selectedOption.dataset.correct === 'true') {
                 feedbackDiv.innerHTML = 'Correct! Well done!';
                 feedbackDiv.style.color = 'green';
+                userAnswers.push(true);
             } else {
                 feedbackDiv.innerHTML = 'Incorrect. The correct answer is highlighted.';
                 feedbackDiv.style.color = 'red';
                 selectedOption.parentElement.classList.add('incorrect');
+                userAnswers.push(false);
             }
-
-            setTimeout(() => {
-                currentQuestion++;
-                if (currentQuestion % 10 === 0) {
-                    currentLevel++;
-                    updateLevel();
-                }
-                if (currentQuestion < quizData.length) {
-                    createQuiz();
-                    updateProgress();
-                } else {
-                    submitQuiz();
-                }
-            }, 2000);
         }
 
-        function submitQuiz() {
+        function moveToNextQuestion() {
+            currentQuestion++;
+            if (currentQuestion % 10 === 0) {
+                currentLevel++;
+                updateLevel();
+            }
+            if (currentQuestion < quizData.length) {
+                createQuiz();
+                updateProgress();
+                document.getElementById('submitBtn').innerHTML = "Submit Answer";
+                document.getElementById('submitBtn').onclick = submitAnswer;
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
             clearInterval(timerInterval);
-            const results = quizData.slice(0, currentQuestion).map((_, index) => {
-                const selected = document.querySelector(`input[name="q${index}"]:checked`);
-                return selected ? selected.dataset.correct === 'true' : null;
-            });
-            displayResults(results);
+            displayResults();
             document.getElementById('submitBtn').style.display = 'none';
         }
 
-        function displayResults(results) {
+        function displayResults() {
             const resultsContainer = document.getElementById('results');
             resultsContainer.innerHTML = '<h2>Quiz Results</h2>';
-            let score = 0;
-            results.forEach((result, index) => {
-                if (result === true) {
-                    score++;
-                }
-            });
-            resultsContainer.innerHTML += `<h3>Total Score: ${score}/${results.length}</h3>`;
+            let score = userAnswers.filter(Boolean).length;
+            resultsContainer.innerHTML += `<h3>Total Score: ${score}/${userAnswers.length}</h3>`;
             resultsContainer.innerHTML += `<h3>Highest Level Reached: ${currentLevel}</h3>`;
         }
 
@@ -245,7 +254,7 @@
                 timerDisplay.innerHTML = `Time left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    submitQuiz();
+                    finishQuiz();
                 }
                 timeLeft--;
             }, 1000);
