@@ -76,7 +76,7 @@
             color: red;
             text-decoration: line-through;
         }
-        #timer, #progress {
+        #timer, #progress, #level {
             margin-bottom: 20px;
             font-weight: bold;
             color: #00B2A9;
@@ -102,6 +102,7 @@
 
     <div id="timer"></div>
     <div id="progress"></div>
+    <div id="level"></div>
     <div id="quiz"></div>
     <button id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
     <div id="results"></div>
@@ -109,7 +110,9 @@
     <script>
         let quizData = [];
         let timerInterval;
-        let timeLeft = 600; // 10 minutes
+        let timeLeft = 1500; // 25 minutes
+        let currentLevel = 1;
+        let currentQuestion = 0;
 
         function loadCSV() {
             fetch('questions.csv')
@@ -120,6 +123,7 @@
                     createQuiz();
                     startTimer();
                     updateProgress();
+                    updateLevel();
                 })
                 .catch(error => {
                     console.error('Error loading CSV:', error);
@@ -146,33 +150,33 @@
         function createQuiz() {
             const quizContainer = document.getElementById('quiz');
             quizContainer.innerHTML = '';
-            quizData.forEach((question, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'question';
-                questionDiv.id = `question${index}`;
-                
-                let options = [
-                    {text: question['Option 1'], correct: true},
-                    {text: question['Option 2'], correct: false},
-                    {text: question['Option 3'], correct: false},
-                    {text: question['Option 4'], correct: false}
-                ];
-                shuffleArray(options);
+            
+            const question = quizData[currentQuestion];
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.id = `question${currentQuestion}`;
+            
+            let options = [
+                {text: question['Option 1'], correct: true},
+                {text: question['Option 2'], correct: false},
+                {text: question['Option 3'], correct: false},
+                {text: question['Option 4'], correct: false}
+            ];
+            shuffleArray(options);
 
-                questionDiv.innerHTML = `
-                    <p><strong>Question ${index + 1}:</strong> ${question.Question}</p>
-                    <div class="options">
-                        ${options.map((option, i) => `
-                            <label class="option">
-                                <input type="radio" name="q${index}" value="${i}" data-correct="${option.correct}" onchange="checkAnswer(${index}, this)">
-                                ${option.text}
-                            </label>
-                        `).join('')}
-                    </div>
-                    <div id="feedback${index}" class="feedback"></div>
-                `;
-                quizContainer.appendChild(questionDiv);
-            });
+            questionDiv.innerHTML = `
+                <p><strong>Question ${currentQuestion + 1}:</strong> ${question.Question}</p>
+                <div class="options">
+                    ${options.map((option, i) => `
+                        <label class="option">
+                            <input type="radio" name="q${currentQuestion}" value="${i}" data-correct="${option.correct}" onchange="checkAnswer(${currentQuestion}, this)">
+                            ${option.text}
+                        </label>
+                    `).join('')}
+                </div>
+                <div id="feedback${currentQuestion}" class="feedback"></div>
+            `;
+            quizContainer.appendChild(questionDiv);
         }
 
         function checkAnswer(questionIndex, selectedOption) {
@@ -194,11 +198,25 @@
                 feedbackDiv.style.color = 'red';
                 selectedOption.parentElement.classList.add('incorrect');
             }
+
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion % 10 === 0) {
+                    currentLevel++;
+                    updateLevel();
+                }
+                if (currentQuestion < quizData.length) {
+                    createQuiz();
+                    updateProgress();
+                } else {
+                    submitQuiz();
+                }
+            }, 2000);
         }
 
         function submitQuiz() {
             clearInterval(timerInterval);
-            const results = quizData.map((_, index) => {
+            const results = quizData.slice(0, currentQuestion).map((_, index) => {
                 const selected = document.querySelector(`input[name="q${index}"]:checked`);
                 return selected ? selected.dataset.correct === 'true' : null;
             });
@@ -216,6 +234,7 @@
                 }
             });
             resultsContainer.innerHTML += `<h3>Total Score: ${score}/${results.length}</h3>`;
+            resultsContainer.innerHTML += `<h3>Highest Level Reached: ${currentLevel}</h3>`;
         }
 
         function startTimer() {
@@ -234,7 +253,12 @@
 
         function updateProgress() {
             const progress = document.getElementById('progress');
-            progress.innerHTML = `Total Questions: ${quizData.length}`;
+            progress.innerHTML = `Question: ${currentQuestion + 1} / ${quizData.length}`;
+        }
+
+        function updateLevel() {
+            const levelDisplay = document.getElementById('level');
+            levelDisplay.innerHTML = `Current Level: ${currentLevel}`;
         }
 
         function shuffleArray(array) {
