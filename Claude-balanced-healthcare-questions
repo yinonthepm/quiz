@@ -1,0 +1,51 @@
+Category,Question,Option 1,Option 2,Option 3,Option 4
+Health,What does FHIR stand for in healthcare IT?,Fast Healthcare Interoperability Resources,Federal Health Information Registry,Functional Health Information Repository,Future Healthcare Information Regulations
+Health,HL7 is:,A set of international standards for transfer of clinical and administrative data between software applications,A type of medical imaging technology,A classification system for hospital-acquired infections,A medication administration protocol
+Health,Shift rostering is:,The process of scheduling staff for different shifts,A technique for sterilizing surgical instruments,A method for categorizing patient acuity,A system for tracking medical supplies
+Health,HIPAA stands for:,Health Insurance Portability and Accountability Act,Hospital Inpatient Patient Admission Assessment,Healthcare Information Processing and Analysis Association,High-Intensity Patient Acuity Algorithm
+Health,What does EHR stand for?,Electronic Health Record,Emergency Health Response,Elevated Heart Rate,Extended Hospital Recovery
+Health,What is telemedicine?,Remote diagnosis and treatment of patients via telecommunications technology,A method for sterilizing medical equipment,A type of medication delivery system,A surgical technique using robots
+Health,What does BMI stand for?,Body Mass Index,Basic Medical Inventory,Biomedical Imaging,Blood Marker Indicator
+Health,What is ICD-10?,International Classification of Diseases 10th Revision,Integrated Care Delivery,Intensive Care Database,Inpatient Consultation Directory
+Health,What does PACS stand for?,Picture Archiving and Communication System,Patient Acuity Classification System,Physician Automated Coding System,Proactive Appointment Confirmation Service
+Health,What is DICOM?,Digital Imaging and Communications in Medicine,Direct Inpatient Care Operations Management,Diagnostic Information Coordination for Outpatient Medicine,Data Integration for Clinical Outcome Measures
+OR,A service-line block in OR scheduling refers to:,A specific time allocated for a particular medical specialty,A physical barrier in the operating room,A break period for medical staff,A type of anesthesia administration
+OR,CRNA stands for:,Certified Registered Nurse Anesthetist,Clinical Research Nurse Assistant,Cardiology Registered Nursing Associate,Critical Response Nursing Administrator
+OR,"A ""block for group of surgeons"" typically means:",Reserved OR time for a specific group of surgeons,A physical barrier between surgical teams,A team-building exercise for surgeons,A type of surgical instrument set
+OR,Setup and cleanup in OR management refers to:,The time needed to prepare and clean an OR between surgeries,A software installation process,A patient pre-op and post-op routine,A staff training program
+OR,PACU stands for:,Post-Anesthesia Care Unit,Pre-Admission Clinical Unit,Patient Acute Care University,Physician Assistant Certification Union
+OR,SDS in a medical context often stands for:,Same Day Surgery,Sudden Death Syndrome,Structured Data System,Surgical Dressing Set
+OR,Parallel rooms in OR management refers to:,Multiple ORs used simultaneously by one surgical team,Operating rooms that are exactly alike,A virtual reality surgical simulation,Rooms used for simultaneous patient consultations
+OR,"A ""flipped room"" in OR management is:",A strategy where one room is being cleaned while another is in use,An OR where the equipment layout is reversed,A room dedicated to emergency surgeries,A training room for new surgical techniques
+OR,An O-arm is:,An intraoperative imaging system,A type of surgical retractor,A patient positioning device,A robotic surgical assistant
+OR,A C-arm is:,An X-ray image intensifier,A type of surgical lighting,A patient transfer device,A vital signs monitor
+Business,A Business Case is:,A justification for a proposed project or undertaking,A type of protective equipment used in hospitals,A method for categorizing patient conditions,A legal framework for healthcare organizations
+Business,POV in a business context stands for:,Proof of Value,Patient Outcome Verification,Physician Order Validation,Procedural Operation Variance
+Business,SDR in a business context stands for:,Sales Development Representative,Surgical Data Repository,System Downtime Recovery,Standard Diagnostic Routine
+Business,The primary focus of a VP of Sales and Growth would be:,Driving revenue and expanding the company's market presence,Overseeing surgical procedures,Managing patient care quality,Developing new medical technologies
+Business,Salesforce is:,A customer relationship management (CRM) platform,A surgical force measurement tool,A staff performance evaluation system,A medication sales tracking software
+Business,What does ROI stand for in business?,Return on Investment,Record of Inventory,Reliability of Information,Range of Influence
+Business,What is a KPI?,Key Performance Indicator,Knowledge Process Integration,Kinetic Patient Interaction,Knowledgeable Physician Interview
+Business,What does B2B mean?,Business-to-Business,Back-to-Basics,Bed-to-Bed transfer,Billing-to-Banking
+Business,What is SWOT analysis?,Strengths Weaknesses Opportunities Threats,Surgical Ward Optimization Technique,System-Wide Operational Testing,Staff Workload Observation Time
+Business,What does SaaS stand for?,Software as a Service,Surgical Assistance and Support,Scheduled Appointments and Services,Strategic Asset Allocation System
+Product,Tenant Params in multi-tenant software refers to:,Configuration settings specific to each client or 'tenant',Physical parameters of hospital buildings,Patient comfort metrics in hospital rooms,Staff performance indicators
+Product,GDPR stands for:,General Data Protection Regulation,Global Digital Patient Records,Graduated Dose Prescription Routine,Generalized Diagnostic Procedure Review
+Product,Guru in Opmed context typically refers to:,A knowledge management solution,A senior medical consultant,A type of medical imaging software,A patient education program
+Product,In project management a Sprint is:,A set period of time during which specific work has to be completed,A rapid response medical team,A fast-track patient discharge process,An accelerated drug development phase
+Product,Inpatient and site Load Balancing refers to:,Distributing patient load across different hospital locations or units,A technique for patient weight management,Balancing medical equipment across facilities,A method for equalizing staff workloads
+Product,What is a product roadmap?,A strategic plan that outlines the vision and direction of a product over time,A map of hospital corridors for product delivery,A timeline for product expiration dates,A guide for transporting medical equipment
+Product,What does MVP stand for in product development?,Minimum Viable Product,Medical Vitals Processor,Maximum Volume Projection,Multi-Variant Procedure
+Product,What is A/B testing?,Comparing two versions of a product to determine which performs better,Testing blood types A and B,Alternating between two surgical procedures,Assessing two different billing methods
+Product,What is user segmentation?,Dividing users into groups based on shared characteristics,Surgical separation of conjoined twins,Categorizing medical equipment by usage,Splitting patient records across multiple systems
+Product,What is a product backlog?,A prioritized list of features and improvements for a product,A record of expired medical products,A log of product-related patient complaints,A history of product malfunctions
+Tech,The primary function of Opmed Copilot is:,To allow users to query about historical patterns and reports,To assist in surgical procedures,To manage staff schedules,To monitor patient vital signs
+Tech,SOC 2 Type 2 is:,A compliance standard for service organizations,A classification of surgical procedures,A type of medical device,A healthcare data encryption protocol
+Tech,MFA stands for:,Multi-Factor Authentication,Medical Facility Authorization,Managed File Access,Multiple Function Analysis
+Tech,Mixpanel is:,A product analytics platform,A blood sample analysis device,A multi-specialty surgical planning tool,A medication mixing system
+Tech,Cognito is:,An Amazon Web Services (AWS) service for user authentication,A cognitive assessment tool for patients,A surgical robot control system,A medical billing software
+Tech,In cloud computing Lambda refers to:,A serverless compute service,A type of radiation used in cancer treatment,A method for calculating drug dosages,A protocol for secure data transmission
+Tech,Kubernetes is:,An open-source container orchestration platform,A surgical technique for knee replacement,A patient positioning system in radiology,A type of hospital management software
+Tech,DynamoDB is:,A NoSQL database service provided by Amazon Web Services,A dynamic patient positioning table for surgery,A system for tracking hospital inventory in real-time,A method for analyzing patient movement patterns
+Tech,What is API in software development?,Application Programming Interface,Advanced Patient Information,Automated Physician Instruction,Accelerated Pharmaceutical Inventory
+Tech,What is machine learning?,A subset of AI that enables systems to learn and improve from experience,A technique for teaching medical students,A method for programming medical devices,A system for automating laboratory processes
