@@ -116,7 +116,7 @@
         let userAnswers = [];
 
         function loadCSV() {
-            fetch('Claude-balanced-healthcare-questions.csv')
+            fetch('questions.csv')
                 .then(response => response.text())
                 .then(data => {
                     quizData = csvToJson(data);
